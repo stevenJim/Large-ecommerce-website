@@ -24,9 +24,13 @@ class SmsCodeSerializer(serializers.Serializer):
             redis_conn.delete('image_code_%s' % image_code_id)
         except RedisError as e:
             logger.error(e)
-
-        if redis_text.decode().lower != text:
+        print(redis_text.decode().lower(), text)
+        if redis_text.decode().lower() != text.lower():
             raise serializers.ValidationError('验证码错误')
 
         return attrs
+
+
+
+
 
