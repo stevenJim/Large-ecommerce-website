@@ -203,8 +203,21 @@ var vm = new Vue({
                 })
         },
         // 删除地址
-        del_address: function (index) {
-
+        // 删除地址
+        del_address: function(index){
+            axios.delete(this.host + '/users/addresses/' + this.addresses[index].id + '/', {
+                    headers: {
+                        'Authorization': 'JWT ' + this.token
+                    },
+                    responseType: 'json'
+                })
+                .then(response => {
+                    // 从数组中移除地址
+                    this.addresses.splice(index, 1);
+                })
+                .catch(error => {
+                    console.log(error.response.data);
+                })
         },
         // 设置默认地址
         set_default: function (index) {
